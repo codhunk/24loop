@@ -60,39 +60,28 @@ export default function ProductCard({
           <span className="text-[11px] text-on-surface-variant/80 font-medium">{subtitle}</span>
         </div>
 
-        <div className="mt-2.5 flex items-end justify-between gap-2">
-                <div className="flex items-center gap-4 bg-stone-100 rounded-full px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button className="text-black hover:opacity-40 transition-all font-black">—</button>
-                  <span className="text-xs font-black">1</span>
-                  <button className="text-black hover:opacity-40 transition-all font-black">+</button>
-                </div>
-          <div className="flex flex-col gap-1.5 flex-grow">
+        <div className="mt-4 flex items-center justify-between gap-4">
+          <div className="flex flex-col gap-1">
             <div className="flex items-baseline gap-2">
-              <span className="text-xl font-black text-on-surface">{price}</span>
+              <span className="text-lg md:text-xl font-black text-on-surface leading-none">{price}</span>
               {originalPrice && (
-                <span className="text-[11px] text-stone-400 line-through font-medium">
+                <span className="text-[10px] md:text-[11px] text-stone-300 line-through font-medium">
                   {originalPrice}
                 </span>
               )}
-              {discount && (
-                <span className="text-[11px] font-bold text-emerald-600">
-                  {discount}
-                </span>
-              )}
             </div>
-
             {isHotDeal && (
               <div className="flex">
-                <span className="bg-emerald-50 text-emerald-700 text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-100 flex items-center gap-1 uppercase tracking-wide">
+                <span className="bg-emerald-50 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded flex items-center gap-1 uppercase tracking-wider">
                   <span className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse"></span>
-                  Hot Deal
+                  Hot
                 </span>
               </div>
             )}
           </div>
 
-          <Link href="/cart" className="flex-none w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center shadow-lg shadow-primary/20 hover:bg-black transition-all hover:scale-110 active:scale-95">
-            <span className="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+          <Link href="/cart" className="flex-none w-10 h-10 md:w-12 md:h-12 bg-black text-white rounded-full flex items-center justify-center shadow-xl hover:bg-primary transition-all hover:scale-110 active:scale-95">
+            <span className="material-symbols-outlined text-[18px] md:text-[22px]">add_shopping_cart</span>
           </Link>
         </div>
       </div>
