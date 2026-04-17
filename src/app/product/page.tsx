@@ -29,8 +29,8 @@ export default function ProductDetail() {
               ))}
             </div>
             <div className="flex-grow aspect-[3/4] rounded-[1rem] overflow-hidden bg-stone-50 relative order-1 md:order-2 shadow-sm group">
-              <Image 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+              <Image
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRgLg8uXj-ZioM6qx_CGxm1BYSif-QdRtnnXZHfapyPMf77QsIJOW6M0hBiJL1tmq0VK8u0FeuCXAy0z8Yg_Kr4uWAleFRMljkGC-Bh3dnrBAv7LOPRaENrzv_9k-s7Nfng4UGysk9clLHhRUAIDyp1wSdo7vbj96vMSJ1dnMedSys1n7IR12lEfZE0QDCmkXKFzxdhr2yndZ4Z0r3b1g-uW1GsgNgL7WMeqsy2wcuIn82WYyFMyijtykDjGDVavrUGoG3yqzviqo"
                 alt="Main Product"
                 fill
@@ -64,7 +64,7 @@ export default function ProductDetail() {
                 <span className="text-lg font-bold text-green-600">60% OFF</span>
               </div>
               <p className="text-sm text-on-surface-variant font-medium">Inclusive of all taxes</p>
-              
+
               <div className="mt-6 flex flex-wrap gap-4">
                 <div className="bg-secondary-container/30 px-4 py-3 rounded-lg border border-secondary-container/50">
                   <p className="text-[10px] capitalize tracking-widest font-bold text-secondary mb-1">Bank Offer</p>
@@ -145,13 +145,13 @@ export default function ProductDetail() {
         </section>
 
         {/* Similar Products */}
-        <section className="py-24 border-t border-stone-100">
+        <section className="py-16 border-t border-stone-100">
           <h2 className="text-3xl font-serif mb-12">You May Also Like</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-             <SimilarCard image="https://lh3.googleusercontent.com/aida-public/AB6AXuC1kdNVJ8eGrDg9YO6ZBeQ1IhBlan8wD3m-hvm50cfY-U7kwhZJR2s0f5M-041dZ1T5LZXM3t05kUSQJhVWExC3Sdc_CnI7kfRssiNiDH2Olp_z0C4anaCE9tBoeCkycImIkmVLAgi5Im61IINHYPYF2VPoDpjsfcQ7zqMjZfUy8szemNRKUdIEVjMerKaQc_AihQJkmK9XZQc723HUQu7WObkydEXjr2jJt_fn-5HYWR7hkxHfaBtRZe11IGq927VEVZjB8j82eKU" title="Silk Wrap Dress" price="$285.00" />
-             <SimilarCard image="https://lh3.googleusercontent.com/aida-public/AB6AXuCMSP1NJaKl04xGwEEDdZCJytxn9RiHfSSbK2o3XtqIgPz3thckS9tafUUkoP99_JJRjkl13X0WuayM4mlcvfLsAjc68cWWfeBB3qJ_8AgNsWNSF3UqySnxPa7v-02jooGM1S59r_RZlOENfIFBVO-KYgZ_etmvmTuPHLu9iPoC5rpxZFf47MIKhLqyP_b9uxxFBhcWiYgaaZOguNvv_obMfdWAC6XWB6j-EIgETtD3ny-CTSZXyEARRKejA2VmUGucDbRDgFWXEoU" title="Linen Whisper Blouse" price="$145.00" />
-             <SimilarCard image="https://lh3.googleusercontent.com/aida-public/AB6AXuAzs2JZ7vE9GCh769Y4LH3AM1rnFgPwAuBfdvLxXnGmyO97ENvG2TpKmS9mLsHOxOMcJazc0RR0OopGZuIZI6ZTADbU-3CGlPUCh8fbZo9H2bfvccELa7FGG9dmWOyDHTWI63wgRmlxM7gyFFJM9PG_plrigoZREB1Wlq9DdtvZgTEKlD8khQEa_kw-zOpAmQNNAlMJ6SNUpK8ZfEoGgOufTbiwmUdKRtxZmMoJ9U1Rq-gYZsMLKlgNisdvPZHiBbEcyZvSFrAWAv8" title="Orchid Evening Gown" price="$490.00" />
-             <SimilarCard image="https://lh3.googleusercontent.com/aida-public/AB6AXuB2NI7HUhs01rahyPKc4XO-NiAnJ2WAPKX_fuMPJWrGHbwhqfgU6QKZHt6IjtIf9S6bc3NM8EpPL-UZY7Qp75TSpTiCEuBl_viW2Q-kdMsSh-WLLtiXB5PxpIqNU4OOIEy9vcwUjd6IVQurC8tSW5mTncL-6691089SdLpUOWz6i89ffjptFzcTT7tpFPmt8uVL80PjRb4_qAZ9NjUT9_AjJJGRjrr_O7Mhhyt0_-RhbgewXyxc-w_1msLaXL9S4LErdvKTu1dRCDY" title="Cashmere Cardigan" price="$320.00" />
+            <SimilarCard image="https://lh3.googleusercontent.com/aida-public/AB6AXuC1kdNVJ8eGrDg9YO6ZBeQ1IhBlan8wD3m-hvm50cfY-U7kwhZJR2s0f5M-041dZ1T5LZXM3t05kUSQJhVWExC3Sdc_CnI7kfRssiNiDH2Olp_z0C4anaCE9tBoeCkycImIkmVLAgi5Im61IINHYPYF2VPoDpjsfcQ7zqMjZfUy8szemNRKUdIEVjMerKaQc_AihQJkmK9XZQc723HUQu7WObkydEXjr2jJt_fn-5HYWR7hkxHfaBtRZe11IGq927VEVZjB8j82eKU" title="Silk Wrap Dress" price="$285.00" />
+            <SimilarCard image="https://lh3.googleusercontent.com/aida-public/AB6AXuCMSP1NJaKl04xGwEEDdZCJytxn9RiHfSSbK2o3XtqIgPz3thckS9tafUUkoP99_JJRjkl13X0WuayM4mlcvfLsAjc68cWWfeBB3qJ_8AgNsWNSF3UqySnxPa7v-02jooGM1S59r_RZlOENfIFBVO-KYgZ_etmvmTuPHLu9iPoC5rpxZFf47MIKhLqyP_b9uxxFBhcWiYgaaZOguNvv_obMfdWAC6XWB6j-EIgETtD3ny-CTSZXyEARRKejA2VmUGucDbRDgFWXEoU" title="Linen Whisper Blouse" price="$145.00" />
+            <SimilarCard image="https://lh3.googleusercontent.com/aida-public/AB6AXuAzs2JZ7vE9GCh769Y4LH3AM1rnFgPwAuBfdvLxXnGmyO97ENvG2TpKmS9mLsHOxOMcJazc0RR0OopGZuIZI6ZTADbU-3CGlPUCh8fbZo9H2bfvccELa7FGG9dmWOyDHTWI63wgRmlxM7gyFFJM9PG_plrigoZREB1Wlq9DdtvZgTEKlD8khQEa_kw-zOpAmQNNAlMJ6SNUpK8ZfEoGgOufTbiwmUdKRtxZmMoJ9U1Rq-gYZsMLKlgNisdvPZHiBbEcyZvSFrAWAv8" title="Orchid Evening Gown" price="$490.00" />
+            <SimilarCard image="https://lh3.googleusercontent.com/aida-public/AB6AXuB2NI7HUhs01rahyPKc4XO-NiAnJ2WAPKX_fuMPJWrGHbwhqfgU6QKZHt6IjtIf9S6bc3NM8EpPL-UZY7Qp75TSpTiCEuBl_viW2Q-kdMsSh-WLLtiXB5PxpIqNU4OOIEy9vcwUjd6IVQurC8tSW5mTncL-6691089SdLpUOWz6i89ffjptFzcTT7tpFPmt8uVL80PjRb4_qAZ9NjUT9_AjJJGRjrr_O7Mhhyt0_-RhbgewXyxc-w_1msLaXL9S4LErdvKTu1dRCDY" title="Cashmere Cardigan" price="$320.00" />
           </div>
         </section>
       </main>

@@ -1,228 +1,407 @@
-import Image from "next/image";
+"use client";
+
+import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const HERO_SLIDES = [
+  {
+    volume: "Vol. 01 — The Summer Editorial",
+    title: "MODERN",
+    accent: "MUSE",
+    description: "A celebration of understated luxury and ethereal silhouettes. Our Summer '26 collection explores the intersection of heritage and innovation.",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCMilxxhgbn4amUrRDbHxttBrzrWUxrlLs0F2AnQc7EgNrA3d83XkraMBfzFKxKJ4M_e1bIo4QGklEcVqdc_fEpecIBSkVNt10a-o-_fLtbzcM4gB3Hm8-zoQ-az31WrExemnFKAPj9JKZLPdmYRkXItslJj4KRLWi4l95Scfukl9exL2DpS4WntjKNlevVrm3MmZHDCYpWeAQe8pYO19PmkbRqxs7i0JK1SJxYEN_e05HIcV7dVZnkvH-5wS5EVjip8C8tlGjK72U",
+    bgColor: "#FAF9F6"
+  },
+  {
+    volume: "Vol. 02 — Ethereal Evenings",
+    title: "NIGHT",
+    accent: "SILK",
+    description: "Hand-finished silk garments designed for the moonlit hours. Experience the fluidity of nocturnal elegance.",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDFMyqbNvXTCutQNFaxKxRhwPQW6Oo77ZcZrhFzRehnco0XDUZIzILuHLurEV_TVtHET9LOLiqdJF73tbJAZyAyjjIlZcrywaKsk7A7PkhHNyzAb-qjPhNRxivakwHVmbFbUp_AbS2AOwl1kSLChdU9Hau9Z0WSNVmHXGVXTijlo-f9cm74paLaS97kJVYJ5xOa22TE7KC1D63B9VrfbmznFj6Qylk_sXFENk-EYV2AFaoLSqTrXEpk4HCxmb4wvd2Njp2J8ppiNqM",
+    bgColor: "#F5F5F3"
+  },
+  {
+    volume: "Vol. 03 — Heritage Reborn",
+    title: "RAW",
+    accent: "TEXT",
+    description: "Honoring traditional weaving techniques with a contemporary edge. Raw textures meet structured minimalism.",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAbMMKjT9Hnm0IM9vjzgY0kG3wmWHzFJGHNKGJpbPMgKEI0D-1EXClXg5HbPChY-cUByInsUJhXDqR8TCSPzxeIAe0JmkebQrP-OEkAi6knOujdS9NFrq2v8ReNwcJ4sMd3arUXQk19scwBapTT0Smqm6EDI_dBM-JokZrSfaQm42Z-dB_OSF93wsMxDVh0B1gWOnGP_ot89YBrT03sLh3dknthNpJfqZa_14EfeyymzOxQEptQwiJ7YXc90RU8r85k8m0a55KNveM",
+    bgColor: "#F9F9F9"
+  }
+];
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-surface selection:bg-primary-container selection:text-on-primary-container">
-
-
-      {/* Hero Section */}
-      <header className="relative w-full min-h-[80vh] flex items-center overflow-hidden bg-surface-container">
-        <div className="absolute inset-0 z-0">
-          <Image 
-            className="w-full h-full object-cover opacity-60" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMilxxhgbn4amUrRDbHxttBrzrWUxrlLs0F2AnQc7EgNrA3d83XkraMBfzFKxKJ4M_e1bIo4QGklEcVqdc_fEpecIBSkVNt10a-o-_fLtbzcM4gB3Hm8-zoQ-az31WrExemnFKAPj9JKZLPdmYRkXItslJj4KRLWi4l95Scfukl9exL2DpS4WntjKNlevVrm3MmZHDCYpWeAQe8pYO19PmkbRqxs7i0JK1SJxYEN_e05HIcV7dVZnkvH-5wS5EVjip8C8tlGjK72U"
-            alt="high fashion editorial shot"
-            fill
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
+      {/* Announcement Bar */}
+      <div className="bg-black text-white py-2.5 relative z-50">
+        <div className="flex justify-center items-center gap-12 px-4 cursor-default">
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]">FREE SHIPPING ON ORDERS OVER ₹5,000</span>
+          <span className="hidden md:inline text-stone-500">•</span>
+          <span className="hidden md:inline text-[10px] font-black uppercase tracking-[0.3em]">NEW ATELIER COLLECTION JUST LANDED</span>
+          <span className="hidden lg:inline text-stone-500">•</span>
+          <span className="hidden lg:inline text-[10px] font-black uppercase tracking-[0.3em]">SIGN UP FOR 10% OFF YOUR FIRST ORDER</span>
         </div>
-        <div className="relative z-10 max-w-screen-2xl mx-auto px-8 w-full">
-          <div className="max-w-2xl bg-white/10 backdrop-blur-md p-8 md:p-12 rounded-[1.5rem] border border-white/20 text-white">
-            <h1 className="text-4xl md:text-7xl font-serif  leading-tight mb-4 text-black font-black">Summer Collection 2026</h1>
-            <p className="text-lg md:text-xl text-white/80 mb-10 max-w-md">Discover effortless elegance for every moment. A curated selection of light silhouettes and premium fabrics.</p>
-            <Link href="/shop" className="inline-block group relative px-10 py-4 bg-primary text-white rounded-full font-semibold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20 text-center w-full md:w-auto">
-              <span className="relative z-10">Shop Now</span>
-              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            </Link>
-          </div>
-        </div>
+      </div>
+
+      {/* Magazine Style Hero Slider */}
+      <header className="relative w-full h-screen overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            className="absolute inset-0 flex flex-col md:flex-row"
+            style={{ backgroundColor: HERO_SLIDES[currentSlide].bgColor }}
+          >
+            {/* Left Side: Content */}
+            <div className="w-full md:w-1/2 h-1/2 md:h-full flex flex-col justify-center px-12 md:px-24 py-12 relative z-10">
+              <div className="space-y-6">
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-black text-[10px] font-black uppercase tracking-[0.4em] block mb-8"
+                >
+                  {HERO_SLIDES[currentSlide].volume}
+                </motion.span>
+
+                <motion.h1
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5, duration: 0.8 }}
+                  className="text-5xl md:text-8xl font-serif leading-[0.95] text-black tracking-tighter"
+                >
+                  {HERO_SLIDES[currentSlide].title} <br />
+                  <span className="italic font-light ml-4">{HERO_SLIDES[currentSlide].accent}</span>
+                </motion.h1>
+
+                <div className="h-px w-20 bg-black/20 my-10"></div>
+
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7 }}
+                  className="text-stone-500 text-lg max-w-sm leading-relaxed font-medium"
+                >
+                  {HERO_SLIDES[currentSlide].description}
+                </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.9 }}
+                  className="pt-12 flex flex-col md:flex-row gap-8 items-start md:items-center"
+                >
+                  <Link href="/shop" className="text-black font-black uppercase tracking-[0.2em] text-xs border-b-2 border-black pb-2 inline-block w-fit hover:text-primary hover:border-primary transition-all">
+                    Shop the Collection
+                  </Link>
+                  <Link href="/lookbook" className="text-stone-400 font-bold uppercase tracking-[0.2em] text-[10px] hover:text-black transition-all">
+                    View Lookbook
+                  </Link>
+                </motion.div>
+              </div>
+
+              <div className="absolute bottom-12 left-12 md:left-24 flex gap-12 text-[10px] font-black text-stone-300">
+                <span>PAGE — 0{currentSlide + 1}</span>
+                <div className="flex gap-2">
+                  {HERO_SLIDES.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentSlide(i)}
+                      className={`h-1 transition-all duration-500 ${i === currentSlide ? "w-8 bg-black" : "w-2 bg-stone-200"}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side: Editorial Image */}
+            <div className="w-full md:w-1/2 h-1/2 md:h-full relative overflow-hidden bg-stone-100">
+              <motion.div
+                initial={{ scale: 1.1, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+                className="w-full h-full"
+              >
+                <Image
+                  className="w-full h-full object-cover"
+                  src={HERO_SLIDES[currentSlide].image}
+                  alt={HERO_SLIDES[currentSlide].title}
+                  fill
+                  priority
+                />
+              </motion.div>
+              <div className="absolute inset-0 bg-black/5 pointer-events-none"></div>
+
+              {/* Floating Tag over Image */}
+              <div className="absolute top-12 right-12 bg-white px-6 py-3 rounded-full shadow-xl">
+                <span className="text-black text-[10px] font-black tracking-widest uppercase italic">Edition 2026</span>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </header>
 
-      {/* Categories Section: Bento Style */}
-      <section className="py-24 px-6 md:px-8 max-w-screen-2xl mx-auto">
-        <div className="flex flex-col items-center mb-16 text-center">
-          <h2 className="text-3xl md:text-4xl font-serif text-on-surface mb-4">Curated Departments</h2>
-          <div className="h-1 w-20 bg-primary/30 rounded-full"></div>
+      {/* Magazine Style Departments */}
+      <section className="py-16 px-6 md:px-12 max-w-screen-2xl mx-auto bg-white">
+        <div className="flex flex-col mb-16">
+          <span className="text-stone-400 text-[10px] font-black tracking-widest uppercase mb-2">The Departments</span>
+          <h2 className="text-4xl md:text-6xl font-serif text-black leading-none">Curated Selection</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 min-h-[600px] md:min-h-[800px]">
-          <div className="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-[1rem] bg-surface-container-low transition-transform hover:-translate-y-2 h-[400px] md:h-auto">
-            <Image 
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7rtBFnCpVhMkuTXZSrnmMZsRkFfPdyFP8S4vtiSbTF2hKnZVpDBG-4FpM6GYhqP2o7ymN3LR9JM1LtZNJ2sn-v9leqHEUNk1uf2z8nnV7c8vgyWPcVX78CmO7LhdelpyWZI0D76sCt0l6EWs_pDRsvlFq4HlVNKf1D23ornwiqb1BN5qdREY7xBsQn9Nl94vJTxPtR7xngQntmKRgphIxbQfijs_T4Vy8PR0_Iey8ds1eQVPi-nB0NUB7E-0ZGQb3UQJtCHrZlQY"
-              alt="Dresses"
-              fill
-            />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all flex flex-col justify-end p-8">
-              <span className="text-white text-3xl font-serif mb-2">Dresses</span>
-              <Link className="text-white font-black text-sm capitalize hover:text-white transition-colors" href="/shop">Explore Collection</Link>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+          {/* Dress Column */}
+          <div className="md:col-span-2 group cursor-pointer">
+            <div className="relative aspect-[4/5] overflow-hidden mb-6">
+              <Image
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7rtBFnCpVhMkuTXZSrnmMZsRkFfPdyFP8S4vtiSbTF2hKnZVpDBG-4FpM6GYhqP2o7ymN3LR9JM1LtZNJ2sn-v9leqHEUNk1uf2z8nnV7c8vgyWPcVX78CmO7LhdelpyWZI0D76sCt0l6EWs_pDRsvlFq4HlVNKf1D23ornwiqb1BN5qdREY7xBsQn9Nl94vJTxPtR7xngQntmKRgphIxbQfijs_T4Vy8PR0_Iey8ds1eQVPi-nB0NUB7E-0ZGQb3UQJtCHrZlQY"
+                alt="Dresses"
+                fill
+              />
             </div>
+            <h3 className="text-2xl font-serif mb-2">The Signature Dress</h3>
+            <Link className="text-[10px] font-black tracking-widest uppercase border-b border-black/10 transition-all hover:border-black" href="/shop">View Category</Link>
           </div>
-          <div className="md:col-span-2 group relative overflow-hidden rounded-[1rem] bg-surface-container-low transition-transform hover:-translate-y-2 h-[300px] md:h-auto">
-            <Image 
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7CJIMKIk0mJmfNDjDyXVLn19iY0GjBNZJwqgbG-2txwbgM1k-rn0EJmoiuWhuXdsMGOcA7lRhDI6LiMFLjuJ4w_nycvJ2SuK4jX-VU71jFySPhGQZxelvnZ_WmgRR9mcR8mj_IKpKe-t50CeMeFQ5aNnMHk5o5n6xpv-i3TbBYzIphvOOx57vjckmOCBUVWWkR5pPCV6BNlQKoVPbR33tRTaRN4dam1kINpAU5lbhjL6CJG4hkm0wrB46K0vPhcTXPIpc8ZPB_Cw"
-              alt="Western Wear"
-              fill
-            />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all flex flex-col justify-end p-8">
-              <span className="text-white text-2xl font-serif mb-2">Western Wear</span>
-              <Link className="text-white/80 text-sm capitalize " href="/shop">Explore</Link>
+
+          <div className="space-y-12 md:col-span-2">
+            <div className="grid grid-cols-2 gap-8">
+              <div className="group cursor-pointer">
+                <div className="relative aspect-square overflow-hidden mb-4">
+                  <Image
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7CJIMKIk0mJmfNDjDyXVLn19iY0GjBNZJwqgbG-2txwbgM1k-rn0EJmoiuWhuXdsMGOcA7lRhDI6LiMFLjuJ4w_nycvJ2SuK4jX-VU71jFySPhGQZxelvnZ_WmgRR9mcR8mj_IKpKe-t50CeMeFQ5aNnMHk5o5n6xpv-i3TbBYzIphvOOx57vjckmOCBUVWWkR5pPCV6BNlQKoVPbR33tRTaRN4dam1kINpAU5lbhjL6CJG4hkm0wrB46K0vPhcTXPIpc8ZPB_Cw"
+                    alt="Western"
+                    fill
+                  />
+                </div>
+                <h4 className="font-serif text-lg">Western Wear</h4>
+              </div>
+              <div className="group cursor-pointer">
+                <div className="relative aspect-square overflow-hidden mb-4">
+                  <Image
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0CAdWuflS1AVtt4eD-pQJpqesxG-lMoISpioFKSw39BUOM462yDBLFtEV_-2M_5Pp-1xEEJuCYxY8DS5fpWcgdjZTdZOssNZOFQLXJA-tizXlX5lU_8c8aXUouWbuWw20zD6LR1fYzxhxMjFcdG8MXIVAtWovVcE1eTH-pZVYTqWGV0iz-sooocAGc0lmdnYsxHSDWH3HTqUzLxWulrrQyTpBo3-vd62xuyXzhZC-LhorBRP2nw1Ffypto1ZZCQbVIh0A-yIBvhU"
+                    alt="Ethnic"
+                    fill
+                  />
+                </div>
+                <h4 className="font-serif text-lg">Ethnic Wear</h4>
+              </div>
             </div>
-          </div>
-          <div className="group relative overflow-hidden rounded-[1rem] bg-surface-container-low transition-transform hover:-translate-y-2 h-[300px] md:h-auto">
-            <Image 
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0CAdWuflS1AVtt4eD-pQJpqesxG-lMoISpioFKSw39BUOM462yDBLFtEV_-2M_5Pp-1xEEJuCYxY8DS5fpWcgdjZTdZOssNZOFQLXJA-tizXlX5lU_8c8aXUouWbuWw20zD6LR1fYzxhxMjFcdG8MXIVAtWovVcE1eTH-pZVYTqWGV0iz-sooocAGc0lmdnYsxHSDWH3HTqUzLxWulrrQyTpBo3-vd62xuyXzhZC-LhorBRP2nw1Ffypto1ZZCQbVIh0A-yIBvhU"
-              alt="Ethnic Wear"
-              fill
-            />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all flex flex-col justify-end p-6">
-              <span className="text-white text-xl font-serif mb-1">Ethnic Wear</span>
-              <Link className="text-white/80 text-xs capitalize " href="/shop">Explore</Link>
-            </div>
-          </div>
-          <div className="group relative overflow-hidden rounded-[1rem] bg-surface-container-low transition-transform hover:-translate-y-2 h-[300px] md:h-auto">
-            <Image 
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFMyqbNvXTCutQNFaxKxRhwPQW6Oo77ZcZrhFzRehnco0XDUZIzILuHLurEV_TVtHET9LOLiqdJF73tbJAZyAyjjIlZcrywaKsk7A7PkhHNyzAb-qjPhNRxivakwHVmbFbUp_AbS2AOwl1kSLChdU9Hau9Z0WSNVmHXGVXTijlo-f9cm74paLaS97kJVYJ5xOa22TE7KC1D63B9VrfbmznFj6Qylk_sXFENk-EYV2AFaoLSqTrXEpk4HCxmb4wvd2Njp2J8ppiNqM"
-              alt="Accessories"
-              fill
-            />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all flex flex-col justify-end p-6">
-              <span className="text-white text-xl font-serif mb-1">Accessories</span>
-              <Link className="text-white/80 text-xs capitalize " href="/shop">Explore</Link>
+
+            <div className="bg-stone-50 p-12 border border-stone-100 flex flex-col justify-center">
+              <h3 className="text-3xl font-serif mb-6 leading-tight">Elevate Your Everyday.</h3>
+              <p className="text-stone-400 text-sm mb-8 leading-relaxed">Join the 24Loop Digital Atelier for exclusive previews and priority access to our limited runs.</p>
+              <Link className="bg-black text-white text-[10px] font-black tracking-widest uppercase py-4 px-8 w-fit" href="/signup">Join the Atelier</Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Promotional Banner */}
-      <section className="mx-6 md:mx-8 mb-24">
-        <div className="max-w-screen-2xl mx-auto rounded-[1rem] overflow-hidden relative h-64 flex items-center justify-center bg-secondary-container">
-          <div className="absolute inset-0 opacity-40">
-            <Image 
-              className="w-full h-full object-cover" 
+      {/* Editorial Promotional Banner */}
+      <section className="py-16 bg-[#111] text-white overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, x: 100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          className="max-w-screen-2xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-16"
+        >
+          <div className="w-full md:w-1/2">
+            <span className="text-primary font-black tracking-[0.4em] text-[10px] mb-6 block uppercase">Seasonal Privilege</span>
+            <h2 className="text-3xl md:text-6xl font-serif leading-none mb-10">THE <br /> <span className="italic">CELEBRATION</span> <br /> SALE.</h2>
+            <div className="flex items-center gap-12">
+              <div>
+                <span className="block text-4xl font-serif">50 %</span>
+                <span className="text-[10px] font-black tracking-widest uppercase text-stone-500">Retail Reward</span>
+              </div>
+              <div className="h-12 w-px bg-white/10"></div>
+              <div>
+                <span className="block text-4xl font-serif">OFF</span>
+                <span className="text-[10px] font-black tracking-widest uppercase text-stone-500">Applies Sitewide</span>
+              </div>
+            </div>
+            <div className="mt-16 bg-white/5 border border-white/10 p-6 flex flex-col sm:flex-row justify-between items-center gap-6">
+              <span className="text-xs font-black tracking-[0.2em] uppercase">Use Code at checkout</span>
+              <span className="text-2xl font-serif text-primary">24LOOP50</span>
+              <Link href="/shop" className="bg-white text-black px-8 py-3 text-[10px] font-black uppercase tracking-widest">Shop All</Link>
+            </div>
+          </div>
+          <div className="w-full md:w-1/2 relative h-[500px]">
+            <Image
+              className="object-cover grayscale"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuArCKFVRMkr2UtJdtYulJHNfPq17HKLfG-mcqsvbm__AFeWGCyQAU1kacBGzEyNveDfxI_kdnkT2_fmZ0GNZIwBTGyo5rHA-udYX3SZvRjzymzkxQ4ojWVrWA5hH01X7eZlytsHGCkjv3UGnm7mEbTDMHz3eG6Fjs6KGdpm-oLLL0DYFv5OzHm0reE4SHISAq_Tbg298yxicb2wZfseYcleQLu6E0StSKp7EWfNFAD4EZX9BSyheAm4Z84n9CKtx7IDfz97xGFhy1E"
-              alt="Banner background"
+              alt="Sale background"
               fill
             />
+            <div className="absolute inset-0 border-[20px] border-white/5"></div>
           </div>
-          <div className="relative z-10 text-center px-4">
-            <h2 className="text-3xl md:text-6xl font-serif text-on-secondary-container  mb-2">Flat 50% Off on Women's Collection</h2>
-            <p className=" md: text-on-secondary-container/80 capitalize text-xs md:text-sm font-semibold">Limited Time Celebration • Use Code: 24LOOP50</p>
-          </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Featured Products */}
-      <section className="py-24 bg-surface-container-low">
+      <section className="py-16 bg-surface-container-low">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
             <div>
-              <span className="text-primary text-sm capitalize  font-bold">The Atelier's Choice</span>
-              <h2 className="text-4xl md:text-5xl font-serif text-on-surface mt-2">Featured Pieces</h2>
+              <span className="text-primary text-xs capitalize  font-bold">The Atelier's Choice</span>
+              <h2 className="text-3xl md:text-4xl font-serif text-on-surface mt-1">Featured Pieces</h2>
             </div>
-            <Link className="text-primary hover:text-primary/80 font-bold border-b-2 border-primary/20 pb-1" href="/shop">View All Collection</Link>
+            <Link className="text-primary hover:text-primary/80 font-bold border-b-2 border-primary/20 pb-1 text-sm" href="/shop">View All Collection</Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <ProductCard 
+            <ProductCard
               image="https://lh3.googleusercontent.com/aida-public/AB6AXuAbMMKjT9Hnm0IM9vjzgY0kG3wmWHzFJGHNKGJpbPMgKEI0D-1EXClXg5HbPChY-cUByInsUJhXDqR8TCSPzxeIAe0JmkebQrP-OEkAi6knOujdS9NFrq2v8ReNwcJ4sMd3arUXQk19scwBapTT0Smqm6EDI_dBM-JokZrSfaQm42Z-dB_OSF93wsMxDVh0B1gWOnGP_ot89YBrT03sLh3dknthNpJfqZa_14EfeyymzOxQEptQwiJ7YXc90RU8r85k8m0a55KNveM"
-              tag="New"
-              title="Silk Satin Slip Dress"
-              subtitle="Champagne Mist"
-              price="$280"
-              originalPrice="$700"
+              tag="New Arrival"
+              brand="SRILOK"
+              title="Ready to Wear Woven Handloom Pure Cotton Saree"
+              subtitle="Blush Pink"
+              price="₹1,398"
+              originalPrice="₹3,109"
+              discount="64% OFF"
+              isHotDeal={true}
             />
-            <ProductCard 
+            <ProductCard
               image="https://lh3.googleusercontent.com/aida-public/AB6AXuC1gE8Y9Vf-tTCbolxbrKaPMh3-OepwCVWaYax84brsFb8o1jazCJDjZEWEmESZBvzG-L2HJW91ghKrY7rTsjY3VRAf3Ou7cAmc8rycpmIIlbh9DFXhThL4jDSuWvWtra1uZ3vqP7T6UaFphnYXOlbqbXDeMi9ihr2VbG81mPRl5bcMf-mqdXlr1DNwzUS-uZ91N1J_E3kPLfnAiGpXnDe8KNYLjw_VqSf2S6akb5Nc2kfhGaD9db97uWD79zt4mITC92kRTppmwmk"
-              title="Tailored Atelier Blazer"
-              subtitle="Oatmeal"
-              price="$420"
-              originalPrice="$1050"
+              brand="ATELIER"
+              title="Tailored Silk Blend Embroidered Kurta Set"
+              subtitle="Ivory Gold"
+              price="₹3,420"
+              originalPrice="₹8,050"
+              discount="57% OFF"
             />
-            <ProductCard 
+            <ProductCard
               image="https://lh3.googleusercontent.com/aida-public/AB6AXuAcSCTFl0v9oGpsdAEMxITzIpu5xLFw-PPBwDYOeqJCy_X9IOMKh5g9c5RaDbQEGc7YyPXCDX8_kdyqCSLTpychuOFqDKpwDf_aMjaeXMr6fma_H2P-Vwumn9u0-l1jEQ1MfKDW4ZA5PmxxhbFXIzKtWH1QpCyofnqWmwCJnvhtNNDR1PXee9eHd-oz5KdnZGmG41h6u9dA7cakMTUYBAgv5jX7yi_Caa_hpIqWHk7PZc7KG5bgdorfg9xMCZW7Kp8osisl1F_57js"
               tag="Trending"
               tagColor="bg-secondary"
-              title="Meadow Midi Skirt"
-              subtitle="Floral Blush"
-              price="$195"
-              originalPrice="$485"
+              brand="VOGUE"
+              title="Floral Print Georgette Anarkali Suit"
+              subtitle="Midnight Bloom"
+              price="₹2,195"
+              originalPrice="₹4,985"
+              discount="55% OFF"
+              isHotDeal={true}
             />
-            <ProductCard 
+            <ProductCard
               image="https://lh3.googleusercontent.com/aida-public/AB6AXuB-TNqViJdVgK050XRR9xyVaNmPuPWSYCwbXF6-wkntl3XoxLJ0jOgtG963V6lf8rdFMX_p33qg75x40vTYb7K0rQktaSyvQ3LobhH2Iw9gIwS1pTFv406o21igxLcUXcbgj73v7XuqpMhchu6pQrs1quTJw1mcLyMw8tZVsQazuoxZEwqEFJF8nl9fL5V5sQECRh05OgaZmXBpOkYmrKHLAyxqIHG73EVisQThHB8lpyJTuW2Pyp7YcFPBM_Fqz1EdPqMMwjyZkNQ"
-              title="Luxe Cami & Trouser"
-              subtitle="Sandstone"
-              price="$310"
-              originalPrice="$775"
+              brand="HERITAGE"
+              title="Classic Pashmina Stole with Zari Border"
+              subtitle="Deep Maroon"
+              price="₹1,850"
+              originalPrice="₹4,500"
+              discount="58% OFF"
             />
-            {/* Added 4 more cards */}
-            <ProductCard 
-              image="https://lh3.googleusercontent.com/aida-public/AB6AXuC1kdNVJ8eGrDg9YO6ZBeQ1IhBlan8wD3m-hvm50cfY-U7kwhZJR2s0f5M-041dZ1T5LZXM3t05kUSQJhVWExC3Sdc_CnI7kfRssiNiDH2Olp_z0C4anaCE9tBoeCkycImIkmVLAgi5Im61IINHYPYF2VPoDpjsfcQ7zqMjZfUy8szemNRKUdIEVjMerKaQc_AihQJkmK9XZQc723HUQu7WObkydEXjr2jJt_fn-5HYWR7hkxHfaBtRZe11IGq927VEVZjB8j82eKU" 
-              title="Silk Wrap Dress" 
-              subtitle="Blush Rose" 
-              price="$285" 
-              originalPrice="$712"
+            <ProductCard
+              image="https://lh3.googleusercontent.com/aida-public/AB6AXuC1kdNVJ8eGrDg9YO6ZBeQ1IhBlan8wD3m-hvm50cfY-U7kwhZJR2s0f5M-041dZ1T5LZXM3t05kUSQJhVWExC3Sdc_CnI7kfRssiNiDH2Olp_z0C4anaCE9tBoeCkycImIkmVLAgi5Im61IINHYPYF2VPoDpjsfcQ7zqMjZfUy8szemNRKUdIEVjMerKaQc_AihQJkmK9XZQc723HUQu7WObkydEXjr2jJt_fn-5HYWR7hkxHfaBtRZe11IGq927VEVZjB8j82eKU"
+              brand="ETHNIC"
+              title="Banarasi Silk Wedding Collection Lehanga"
+              subtitle="Royal Crimson"
+              price="₹15,285"
+              originalPrice="₹35,000"
+              discount="56% OFF"
+              isHotDeal={true}
             />
-            <ProductCard 
-              image="https://lh3.googleusercontent.com/aida-public/AB6AXuCMSP1NJaKl04xGwEEDdZCJytxn9RiHfSSbK2o3XtqIgPz3thckS9tafUUkoP99_JJRjkl13X0WuayM4mlcvfLsAjc68cWWfeBB3qJ_8AgNsWNSF3UqySnxPa7v-02jooGM1S59r_RZlOENfIFBVO-KYgZ_etmvmTuPHLu9iPoC5rpxZFf47MIKhLqyP_b9uxxFBhcWiYgaaZOguNvv_obMfdWAC6XWB6j-EIgETtD3ny-CTSZXyEARRKejA2VmUGucDbRDgFWXEoU" 
-              title="Linen Whisper Blouse" 
-              subtitle="Ivory" 
-              price="$145" 
-              originalPrice="$362"
+            <ProductCard
+              image="https://lh3.googleusercontent.com/aida-public/AB6AXuCMSP1NJaKl04xGwEEDdZCJytxn9RiHfSSbK2o3XtqIgPz3thckS9tafUUkoP99_JJRjkl13X0WuayM4mlcvfLsAjc68cWWfeBB3qJ_8AgNsWNSF3UqySnxPa7v-02jooGM1S59r_RZlOENfIFBVO-KYgZ_etmvmTuPHLu9iPoC5rpxZFf47MIKhLqyP_b9uxxFBhcWiYgaaZOguNvv_obMfdWAC6XWB6j-EIgETtD3ny-CTSZXyEARRKejA2VmUGucDbRDgFWXEoU"
+              brand="MODERN"
+              title="Chiffon Designer Party Wear Saree"
+              subtitle="Ocean Teal"
+              price="₹2,645"
+              originalPrice="₹6,500"
+              discount="59% OFF"
             />
-            <ProductCard 
-              image="https://lh3.googleusercontent.com/aida-public/AB6AXuAzs2JZ7vE9GCh769Y4LH3AM1rnFgPwAuBfdvLxXnGmyO97ENvG2TpKmS9mLsHOxOMcJazc0RR0OopGZuIZI6ZTADbU-3CGlPUCh8fbZo9H2bfvccELa7FGG9dmWOyDHTWI63wgRmlxM7gyFFJM9PG_plrigoZREB1Wlq9DdtvZgTEKlD8khQEa_kw-zOpAmQNNAlMJ6SNUpK8ZfEoGgOufTbiwmUdKRtxZmMoJ9U1Rq-gYZsMLKlgNisdvPZHiBbEcyZvSFrAWAv8" 
-              title="Orchid Evening Gown" 
-              subtitle="Evening Dusk" 
-              price="$490" 
-              originalPrice="$1225"
+            <ProductCard
+              image="https://lh3.googleusercontent.com/aida-public/AB6AXuAzs2JZ7vE9GCh769Y4LH3AM1rnFgPwAuBfdvLxXnGmyO97ENvG2TpKmS9mLsHOxOMcJazc0RR0OopGZuIZI6ZTADbU-3CGlPUCh8fbZo9H2bfvccELa7FGG9dmWOyDHTWI63wgRmlxM7gyFFJM9PG_plrigoZREB1Wlq9DdtvZgTEKlD8khQEa_kw-zOpAmQNNAlMJ6SNUpK8ZfEoGgOufTbiwmUdKRtxZmMoJ9U1Rq-gYZsMLKlgNisdvPZHiBbEcyZvSFrAWAv8"
+              brand="GLAM"
+              title="Sequined Cocktail Evening Gown"
+              subtitle="Emerald Green"
+              price="₹4,890"
+              originalPrice="₹12,225"
+              discount="60% OFF"
+              isHotDeal={true}
             />
-            <ProductCard 
-              image="https://lh3.googleusercontent.com/aida-public/AB6AXuB2NI7HUhs01rahyPKc4XO-NiAnJ2WAPKX_fuMPJWrGHbwhqfgU6QKZHt6IjtIf9S6bc3NM8EpPL-UZY7Qp75TSpTiCEuBl_viW2Q-kdMsSh-WLLtiXB5PxpIqNU4OOIEy9vcwUjd6IVQurC8tSW5mTncL-6691089SdLpUOWz6i89ffjptFzcTT7tpFPmt8uVL80PjRb4_qAZ9NjUT9_AjJJGRjrr_O7Mhhyt0_-RhbgewXyxc-w_1msLaXL9S4LErdvKTu1dRCDY" 
-              title="Cashmere Cloud Cardigan" 
-              subtitle="Taupe" 
-              price="$320" 
-              originalPrice="$800"
+            <ProductCard
+              image="https://lh3.googleusercontent.com/aida-public/AB6AXuB2NI7HUhs01rahyPKc4XO-NiAnJ2WAPKX_fuMPJWrGHbwhqfgU6QKZHt6IjtIf9S6bc3NM8EpPL-UZY7Qp75TSpTiCEuBl_viW2Q-kdMsSh-WLLtiXB5PxpIqNU4OOIEy9vcwUjd6IVQurC8tSW5mTncL-6691089SdLpUOWz6i89ffjptFzcTT7tpFPmt8uVL80PjRb4_qAZ9NjUT9_AjJJGRjrr_O7Mhhyt0_-RhbgewXyxc-w_1msLaXL9S4LErdvKTu1dRCDY"
+              brand="ATELIER"
+              title="Hand-Knit Woolen Luxury Wrap"
+              subtitle="Sandy Beige"
+              price="₹3,120"
+              originalPrice="₹7,800"
+              discount="60% OFF"
             />
           </div>
         </div>
       </section>
 
       {/* Trending Section */}
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white border-y border-stone-100">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif text-on-surface mb-4 ">Trending Now</h2>
-            <p className="text-on-surface-variant capitalize  text-xs font-bold">Most Loved by the Community</p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-serif text-on-surface mb-2 ">Trending Now</h2>
+            <p className="text-on-surface-variant capitalize  text-[10px] font-bold">Most Loved by the Community</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <ProductCard 
-              image="https://lh3.googleusercontent.com/aida-public/AB6AXuAeHV8hOAlM7OEqYDXF2l8WId0VGlALfdcUis9cw300hV1S27oJMc0cSn9k4GXaCZ_M3WZ6hHMpyMA4IKcbPFAngmMlI-FVdtUOP3qFwYsE1ZdDQD9ZExB8akXDSZVSOMoZxiKoXczgY8jSBUb-j23b_EJo90VGHhGW1PmzBhFKZqb1UcukPgg8nCwQoUm6gqLaoEm6K97MyEAQS8hhfn6OVP3XiHSvrBH-qnB8_czZE_M9YVAdxLNA0IyEQ49O1Zd2PZfpm-EWMjs" 
-              title="Satin Slip Skirt" 
-              subtitle="Champagne" 
-              price="$110" 
-              originalPrice="$275"
+            <ProductCard
+              image="https://lh3.googleusercontent.com/aida-public/AB6AXuAeHV8hOAlM7OEqYDXF2l8WId0VGlALfdcUis9cw300hV1S27oJMc0cSn9k4GXaCZ_M3WZ6hHMpyMA4IKcbPFAngmMlI-FVdtUOP3qFwYsE1ZdDQD9ZExB8akXDSZVSOMoZxiKoXczgY8jSBUb-j23b_EJo90VGHhGW1PmzBhFKZqb1UcukPgg8nCwQoUm6gqLaoEm6K97MyEAQS8hhfn6OVP3XiHSvrBH-qnB8_czZE_M9YVAdxLNA0IyEQ49O1Zd2PZfpm-EWMjs"
+              brand="URBAN"
+              title="Straight Cut Velvet Kurti"
+              subtitle="Wine Red"
+              price="₹1,210"
+              originalPrice="₹2,750"
+              discount="56% OFF"
+              isHotDeal={true}
             />
-            <ProductCard 
-              image="https://lh3.googleusercontent.com/aida-public/AB6AXuAvU8TotjkqqTgzK2bITDbabdbvUIx0kzccQAfMyWK0Ot0O-vhVR9R3LIjS-NlFgNN2MNdFSriagcYOTIrWLkpmIYfvGc17wclnhnFlYG05OT4OBGmkY0sNlA89-IZeh0L8ATmVwQBIN0O7dfU8bPk-bXRerjT484e-cw6cMHpCBaFt7GmC78QdzQIJGIsFu6pasPYZNxMW1uZo7sLff6Z2F2npV40S5gIGg-BMs0RCD4EK8rcMMLKTvZcMGoVwguQ1OxsGAMfXI50" 
-              title="Petal Sun Dress" 
-              subtitle="Floral Mist" 
-              price="$195" 
-              originalPrice="$485"
+            <ProductCard
+              image="https://lh3.googleusercontent.com/aida-public/AB6AXuAvU8TotjkqqTgzK2bITDbabdbvUIx0kzccQAfMyWK0Ot0O-vhVR9R3LIjS-NlFgNN2MNdFSriagcYOTIrWLkpmIYfvGc17wclnhnFlYG05OT4OBGmkY0sNlA89-IZeh0L8ATmVwQBIN0O7dfU8bPk-bXRerjT484e-cw6cMHpCBaFt7GmC78QdzQIJGIsFu6pasPYZNxMW1uZo7sLff6Z2F2npV40S5gIGg-BMs0RCD4EK8rcMMLKTvZcMGoVwguQ1OxsGAMfXI50"
+              tag="Best Seller"
+              brand="PRIME"
+              title="Handcrafted Phulkari Dupatta"
+              subtitle="Multicolor Silk"
+              price="₹1,195"
+              originalPrice="₹3,485"
+              discount="65% OFF"
             />
-            <ProductCard 
-              image="https://lh3.googleusercontent.com/aida-public/AB6AXuAvs2JZ7vE9GCh769Y4LH3AM1rnFgPwAuBfdvLxXnGmyO97ENvG2TpKmS9mLsHOxOMcJazc0RR0OopGZuIZI6ZTADbU-3CGlPUCh8fbZo9H2bfvccELa7FGG9dmWOyDHTWI63wgRmlxM7gyFFJM9PG_plrigoZREB1Wlq9DdtvZgTEKlD8khQEa_kw-zOpAmQNNAlMJ6SNUpK8ZfEoGgOufTbiwmUdKRtxZmMoJ9U1Rq-gYZsMLKlgNisdvPZHiBbEcyZvSFrAWAv8" 
-              title="Orchid Evening Gown" 
-              subtitle="Indigo Dusk" 
-              price="$490" 
-              originalPrice="$1225"
+            <ProductCard
+              image="https://lh3.googleusercontent.com/aida-public/AB6AXuAvs2JZ7vE9GCh769Y4LH3AM1rnFgPwAuBfdvLxXnGmyO97ENvG2TpKmS9mLsHOxOMcJazc0RR0OopGZuIZI6ZTADbU-3CGlPUCh8fbZo9H2bfvccELa7FGG9dmWOyDHTWI63wgRmlxM7gyFFJM9PG_plrigoZREB1Wlq9DdtvZgTEKlD8khQEa_kw-zOpAmQNNAlMJ6SNUpK8ZfEoGgOufTbiwmUdKRtxZmMoJ9U1Rq-gYZsMLKlgNisdvPZHiBbEcyZvSFrAWAv8"
+              brand="CHIC"
+              title="Tussar Silk Formal Saree"
+              subtitle="Golden Ochre"
+              price="₹3,890"
+              originalPrice="₹9,225"
+              discount="58% OFF"
             />
-            <ProductCard 
-              image="https://lh3.googleusercontent.com/aida-public/AB6AXuB2NI7HUhs01rahyPKc4XO-NiAnJ2WAPKX_fuMPJWrGHbwhqfgU6QKZHt6IjtIf9S6bc3NM8EpPL-UZY7Qp75TSpTiCEuBl_viW2Q-kdMsSh-WLLtiXB5PxpIqNU4OOIEy9vcwUjd6IVQurC8tSW5mTncL-6691089SdLpUOWz6i89ffjptFzcTT7tpFPmt8uVL80PjRb4_qAZ9NjUT9_AjJJGRjrr_O7Mhhyt0_-RhbgewXyxc-w_1msLaXL9S4LErdvKTu1dRCDY" 
-              title="Cashmere Cloud Cardigan" 
-              subtitle="Taupe" 
-              price="$320" 
-              originalPrice="$800"
+            <ProductCard
+              image="https://lh3.googleusercontent.com/aida-public/AB6AXuB2NI7HUhs01rahyPKc4XO-NiAnJ2WAPKX_fuMPJWrGHbwhqfgU6QKZHt6IjtIf9S6bc3NM8EpPL-UZY7Qp75TSpTiCEuBl_viW2Q-kdMsSh-WLLtiXB5PxpIqNU4OOIEy9vcwUjd6IVQurC8tSW5mTncL-6691089SdLpUOWz6i89ffjptFzcTT7tpFPmt8uVL80PjRb4_qAZ9NjUT9_AjJJGRjrr_O7Mhhyt0_-RhbgewXyxc-w_1msLaXL9S4LErdvKTu1dRCDY"
+              brand="LUMINOUS"
+              title="Zardosi Work Clutch Bag"
+              subtitle="Gold Sequin"
+              price="₹950"
+              originalPrice="₹2,500"
+              discount="62% OFF"
+              isHotDeal={true}
             />
           </div>
         </div>
       </section>
 
       {/* New Arrivals Section: Horizontal Scroll */}
-      <section className="py-24 overflow-hidden bg-slate-50">
+      <section className="py-16 overflow-hidden bg-slate-50">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-8 mb-12">
           <h2 className="text-4xl md:text-5xl font-serif text-on-surface">The Fresh Edit</h2>
           <p className="text-on-surface-variant mt-2">Just landed in the atelier.</p>
@@ -237,22 +416,22 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 bg-surface-container-high/30">
+      <section className="py-16 bg-surface-container-high/30">
         <div className="max-w-screen-2xl mx-auto px-6 text-center">
           <span className="text-secondary text-sm capitalize  mb-4 block font-bold">The 24Loop Community</span>
           <h2 className="text-4xl md:text-5xl font-serif text-on-surface mb-16">What Our Icons Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <TestimonialCard 
+            <TestimonialCard
               image="https://lh3.googleusercontent.com/aida-public/AB6AXuCmnP-HRJyZLDNp8vi7jJzf2W0knmSkG6jcw0kls9GXY_RLLhDbvPuEWmI7ln7TZUU8mhAxqDjj9d2XCT5qGkghwCWoiLwARvENoFMdoEv4b6G0LM9RbuCHg0aoBz3c6tP44nyYZg4EKBJNHCTZIOYp8xDJwe6EbYllXKDA2XBuVZVZEp7XPU-rUEIPP4ZM9OfcI1rnNGrQXVa0k0uav3ShnrbtgHMSsRU7bhQWzxuKNAA0WTFhcKYg8z5qspuDb8b1-8Vaoid1qt8"
               text="The quality of the silk is unmatched. I felt like I was wearing a work of art at my gallery opening."
               author="Elena Moretti"
             />
-            <TestimonialCard 
+            <TestimonialCard
               image="https://lh3.googleusercontent.com/aida-public/AB6AXuACDD3gMvsOJSsKWh4r_qpNFKg0y8NqJTuErw4qNW9J9olddFlJFKTTT5Yf-pIgorTBJqguUfrHLGZSrNAFGMJhO4V7-rUAriSfxO_HCGJNukK91VrQkuon2UQ5BBqIkeCFRHrVp66l0a7VNJwXE9G02dBNlCVod764InDL33By9ggF9hSGV5oygmGPfqgeMRs8yxsExNdHy2hASMVJoy45ael1QChnjwUOpgctq8j4OTgKzKqr0VU-kFe5KNYaI0Lz9KfWzkV3RPE"
               text="Finally, a brand that understands modern elegance without being overly flashy. Simply ethereal."
               author="Sarah J. Westwood"
             />
-            <TestimonialCard 
+            <TestimonialCard
               image="https://lh3.googleusercontent.com/aida-public/AB6AXuDq__SQiqGIUMVt_8Pt-S5Zc9UQSG8RI8JT0K9nVTiCje4GOnwSMDL9qK095x3iYxAb9j6Mlt5nm--nEBx_RgJOqxJBPQKfVIbFggMT3pKYjqtrMkoAeGxTarFndAEapggA9Jha_j9UufBTWYvUaZmol2FUPcdR-HoPn3vQmlfoYQzqcnMFzM_nMU44dnTMxWZVCWMcwy3GHUgnspPhur2aegHTgANlBTQhnlzhfBab_ZRUJOeEG5NCAMyljEvnAuaDlCeHVTlZZtM"
               text="The shopping experience was as premium as the products. The packaging is absolutely beautiful."
               author="Maya Al-Fayed"
@@ -262,7 +441,7 @@ export default function Home() {
       </section>
 
       {/* Newsletter */}
-      <section className="py-24 bg-surface">
+      <section className="py-16 bg-surface">
         <div className="max-w-3xl mx-auto px-6 text-center bg-primary-container/20 rounded-[1.5rem] p-8 md:p-16 relative overflow-hidden">
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl"></div>
@@ -322,68 +501,14 @@ export default function Home() {
   );
 }
 
-function ProductCard({ image, tag, tagColor = "bg-primary", title, subtitle, price, originalPrice, rating = 4.5, reviewCount = 120 }: { image: string, tag?: string, tagColor?: string, title: string, subtitle: string, price: string, originalPrice?: string, rating?: number, reviewCount?: number }) {
-  return (
-    <div className="group bg-white rounded-[1rem] p-4 transition-all duration-300 hover:shadow-xl border border-transparent hover:border-stone-100 relative">
-      <div className="relative aspect-[3/4] overflow-hidden rounded-[0.8rem] mb-5 bg-stone-50">
-        {tag && <span className={`absolute top-3 left-3 z-10 ${tagColor} px-2 py-0.5 text-white text-[10px] font-bold capitalize rounded-sm`}>{tag}</span>}
-        <button className="absolute top-3 right-3 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-stone-400 transition-all hover:bg-rose-50 hover:text-rose-600 shadow-sm">
-          <span className="material-symbols-outlined text-[20px]">favorite</span>
-        </button>
-        <Link href="/product">
-          <Image 
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-            src={image} 
-            alt={title}
-            fill
-          />
-        </Link>
-        <div className="absolute bottom-3 inset-x-3 opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
-          <Link href="/cart" className="w-full bg-on-surface text-surface py-2.5 rounded-full text-xs font-bold flex items-center justify-center gap-2 hover:bg-primary transition-colors shadow-lg">
-            <span className="material-symbols-outlined text-sm">shopping_bag</span>
-            Add to Cart
-          </Link>
-        </div>
-      </div>
-      <div className="px-1">
-        <div className="flex items-center gap-1 mb-1">
-          <span className="text-[10px] font-bold text-stone-400 capitalize ">24Loop</span>
-          <div className="flex text-amber-400 ml-auto">
-            <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-            <span className="text-[11px] font-bold text-on-surface ml-0.5">{rating}</span>
-          </div>
-        </div>
-        <Link href="/product">
-          <h3 className="text-base font-serif text-on-surface hover:text-primary transition-colors cursor-pointer line-clamp-1">{title}</h3>
-        </Link>
-        <p className="text-xs text-on-surface-variant mb-3">{subtitle}</p>
-        
-        <div className="flex items-baseline gap-2">
-          <span className="text-xl font-bold text-on-surface">{price}</span>
-          {originalPrice && (
-            <>
-              <span className="text-sm text-stone-400 line-through">{originalPrice}</span>
-              <span className="text-xs font-bold text-green-600">60% OFF</span>
-            </>
-          )}
-        </div>
-        
-        <p className="text-[10px] text-green-700 font-bold mt-2 flex items-center gap-1">
-          <span className="material-symbols-outlined text-[14px]">local_shipping</span>
-          FREE Delivery by Tue, Apr 21
-        </p>
-      </div>
-    </div>
-  );
-}
 
 function ScrollItem({ image, title }: { image: string, title: string }) {
   return (
-    <div className="flex-none w-[350px] space-y-4">
-      <div className="h-[450px] rounded-[1rem] overflow-hidden shadow-lg relative">
-        <Image className="w-full h-full object-cover" src={image} alt={title} fill />
+    <div className="flex-none w-[280px] space-y-3">
+      <div className="h-[350px] rounded-[1rem] overflow-hidden shadow-md relative">
+        <Image className="w-full h-full object-cover transition-transform hover:scale-105 duration-500" src={image} alt={title} fill />
       </div>
-      <p className="font-serif  text-xl">{title}</p>
+      <p className="font-serif text-lg">{title}</p>
     </div>
   );
 }

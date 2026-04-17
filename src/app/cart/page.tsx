@@ -1,188 +1,247 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const INITIAL_ITEMS = [
+  {
+    id: 1,
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuD4TOvR15m0APFFaUiBrmq-Lqq0hNlwBOtolxIz_WcyiU0hx5_J5qp8uS-fze23VYyySIe470J82-2bhkVLBBBrZ8GseJ56g9Pj2Yo2bYDQSNuZsGqiQewdeG48ee0O129pFrkBCL1qnbdg51IA0dgmPqNh5GaD7wRTROUv3gqmQfASisxqMzip8qQe8eK4fzHIiNhGRWRhQ125xtzW8hCatrj1wIqgfCeYQz6EJHod8gB2XtCkmTByvPfK6p7C-c3RkuPUKwja3BQ",
+    title: "The Silk Slip Dress",
+    sku: "ATL-26-004",
+    color: "Champagne Gold",
+    size: "S",
+    price: 15285,
+    quantity: 1
+  },
+  {
+    id: 2,
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTqVCuYmV-UMlq2il4Lrtx4xWqXOnh21RKy4CCtBVs5-TXRrmJjqT02pZ47verrl-14o15JkvX5wx3OpErPuZ3IX51UpJUefxHIiDESnmMHkqIpE0tO5hPfKi2Hfu_3Ls-vCq2BmTKtenJTggsjAAENJZte8FwEDbgD8kQVE7vPPgK1wfw_alV9VeAn99gqziljtl8ZJEuPydbFK9p493yjd8I0r8XAhcywk7eq1nwzszqSVM9zbFYMiS6160pSAwv-As90lAhq2E",
+    title: "Ivory Tailored Blazer",
+    sku: "MNM-26-081",
+    color: "Soft Bone",
+    size: "M",
+    price: 8450,
+    quantity: 1
+  }
+];
 
 export default function Cart() {
+  const [items, setItems] = useState(INITIAL_ITEMS);
+  const FREE_SHIPPING_THRESHOLD = 25000;
+
+  const updateQuantity = (id: number, delta: number) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
+      )
+    );
+  };
+
+  const removeItem = (id: number) => {
+    setItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const subtotal = useMemo(() => items.reduce((acc, item) => acc + item.price * item.quantity, 0), [items]);
+  const gst = Math.round(subtotal * 0.12);
+  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : 450;
+  const total = subtotal + shipping;
+  const progress = Math.min((subtotal / FREE_SHIPPING_THRESHOLD) * 100, 100);
+
   return (
-    <div className="min-h-screen bg-surface selection:bg-primary-container selection:text-on-primary-container">
-
-
-      <main className="max-w-screen-2xl mx-auto px-8 pt-12 pb-24 font-body">
-        <div className="mb-12">
-          <h1 className="text-5xl font-serif  tracking-tight text-on-background mb-2">Shopping Bag</h1>
-          <p className="font-body text-stone-500">2 items in your curation</p>
+    <div className="min-h-screen bg-[#FAF9F6]">
+      <main className="max-w-screen-2xl mx-auto px-6 md:px-16 py-24">
+        
+        {/* Editorial Heading */}
+        <div className="mb-24 flex flex-col md:flex-row items-baseline justify-between gap-4 border-b border-black/5 pb-12">
+          <div className="space-y-2">
+            <h1 className="text-6xl md:text-8xl font-serif text-black leading-none tracking-tighter">
+              Shopping <span className="italic font-light">Bag</span>
+            </h1>
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-stone-400">Inventory Reserved for 15:00 minutes</p>
+          </div>
+          <div className="flex gap-12 text-[10px] font-black uppercase tracking-widest text-stone-300">
+            <span>Bag — 0{items.length}</span>
+            <span>Est. Delivery — Oct 24</span>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-          {/* Cart Items List */}
-          <div className="lg:col-span-8 space-y-12">
-            <CartItem 
-              image="https://lh3.googleusercontent.com/aida-public/AB6AXuD4TOvR15m0APFFaUiBrmq-Lqq0hNlwBOtolxIz_WcyiU0hx5_J5qp8uS-fze23VYyySIe470J82-2bhkVLBBBrZ8GseJ56g9Pj2Yo2bYDQSNuZsGqiQewdeG48ee0O129pFrkBCL1qnbdg51IA0dgmPqNh5GaD7wRTROUv3gqmQfASisxqMzip8qQe8eK4fzHIiNhGRWRhQ125xtzW8hCatrj1wIqgfCeYQz6EJHod8gB2XtCkmTByvPfK6p7C-c3RkuPUKwja3BQ"
-              title="Silk Slip Dress"
-              color="Champagne Gold"
-              size="Small"
-              price="$240.00"
-            />
-            <CartItem 
-              image="https://lh3.googleusercontent.com/aida-public/AB6AXuDTqVCuYmV-UMlq2il4Lrtx4xWqXOnh21RKy4CCtBVs5-TXRrmJjqT02pZ47verrl-14o15JkvX5wx3OpErPuZ3IX51UpJUefxHIiDESnmMHkqIpE0tO5hPfKi2Hfu_3Ls-vCq2BmTKtenJTggsjAAENJZte8FwEDbgD8kQVE7vPPgK1wfw_alV9VeAn99gqziljtl8ZJEuPydbFK9p493yjd8I0r8XAhcywk7eq1nwzszqSVM9zbFYMiS6160pSAwv-As90lAhq2E"
-              title="Tailored Blazer"
-              color="Soft Bone"
-              size="Medium"
-              price="$480.00"
-            />
+        {items.length > 0 ? (
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-24">
+            
+            {/* Main Content Area */}
+            <div className="xl:col-span-8 space-y-20">
+              
+              {/* Free Shipping Tracker */}
+              <div className="bg-white p-8 border border-stone-100 shadow-sm relative overflow-hidden">
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-black uppercase tracking-widest">
+                      {subtotal >= FREE_SHIPPING_THRESHOLD 
+                        ? "Complimentary Shipping Unlocked" 
+                        : "Complimentary Shipping Progress"}
+                    </h4>
+                    <p className="text-xs text-stone-400 font-medium italic">
+                      {subtotal >= FREE_SHIPPING_THRESHOLD 
+                        ? "Your order qualifies for free global atelier delivery." 
+                        : `Add ₹${(FREE_SHIPPING_THRESHOLD - subtotal).toLocaleString()} more to unlock free shipping.`}
+                    </p>
+                  </div>
+                  <div className="w-full md:w-64 h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${progress}%` }}
+                      className="h-full bg-black"
+                    />
+                  </div>
+                </div>
+              </div>
 
-            {/* Complete the Look */}
-            <div className="pt-12">
-              <h4 className="font-serif  text-xl mb-6">Complete the Look</h4>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <LookItem image="https://lh3.googleusercontent.com/aida-public/AB6AXuD7ddggRRU5UXiFnuiAM9n1w96_zOU6cf5-3Evm5RzXrtaEogJ9UtEFhts03LTl0wYqeIh6XBwMDH1FoIc5o-FNtRWHq-SoUsTyNQNWHsdefw2mahRQ96E_UkDL858Q449LishDccHd9lKY7nir90iilsC3cgDoy_WLIj1IfCy9nrhHEQLEV1LG_JFJx8i_FZHXlokOeqGj4LqSQArk5TBATP8OqgE9K3y3FypKqapzCJqMe1F_9XnpPldRMPpVAxiQl6CoUljfjrU" title="Nude Pumps" />
-                <LookItem image="https://lh3.googleusercontent.com/aida-public/AB6AXuC8y5h0P314Fi7l8rpft69AevaiNaeIzAxqXTOkEtN5BFEoGJLaCQ-O95wRbf1PizvMLCuWvkNm9ulhdmfO9_7dh1VRdwsON75q-UuD-XkCXBZZGKaBFaQS7neZctoqrOS0Z2uHBTuix1-rVr7Ibz5KeyExQJlRBPO8h5oApvqNQlsQpX2b4shH_1yN5joSR1T9HWlB1cWUtcCkpqrRX84288Soq5nuWbLxvc47PFpLOs2YeHhhg2uXKQ3jzPan0xLO-kUV_cwGvhE" title="Pearl Drop" />
+              {/* Items List */}
+              <div className="space-y-0">
+                <AnimatePresence initial={false}>
+                  {items.map((item, index) => (
+                    <motion.div 
+                      key={item.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      className="group py-12 border-b border-stone-200 grid grid-cols-1 md:grid-cols-12 gap-12"
+                    >
+                      <div className="md:col-span-1 hidden md:block">
+                        <span className="text-stone-200 text-6xl font-serif italic leading-none opacity-50">0{index+1}</span>
+                      </div>
+
+                      <div className="md:col-span-3">
+                        <div className="aspect-[3/4] relative bg-stone-100 overflow-hidden mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.02]">
+                          <Image src={item.image} alt={item.title} fill className="object-cover transition-all duration-1000 grayscale-[40%] group-hover:grayscale-0" />
+                        </div>
+                      </div>
+
+                      <div className="md:col-span-5 flex flex-col justify-between">
+                        <div className="space-y-4">
+                          <div className="flex flex-col gap-1">
+                            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-stone-300">Piece {item.sku}</span>
+                            <h3 className="text-3xl font-serif text-black leading-tight">{item.title}</h3>
+                          </div>
+                          
+                          <div className="flex flex-wrap gap-8 text-[11px] font-bold uppercase tracking-widest text-stone-400">
+                            <div>Color <span className="text-black ml-2">{item.color}</span></div>
+                            <div>Size <span className="text-black ml-2">{item.size}</span></div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-12 mt-12">
+                          <div className="flex items-center border border-black rounded-full px-6 py-2 gap-8">
+                             <button onClick={() => updateQuantity(item.id, -1)} className="text-black hover:opacity-40 transition-all text-xs font-black">—</button>
+                             <span className="text-sm font-black w-6 text-center">{item.quantity}</span>
+                             <button onClick={() => updateQuantity(item.id, 1)} className="text-black hover:opacity-40 transition-all text-xs font-black">+</button>
+                          </div>
+                          <button 
+                            onClick={() => removeItem(item.id)}
+                            className="text-[10px] font-black uppercase tracking-widest text-rose-300 hover:text-rose-600 transition-colors underline underline-offset-8"
+                          >
+                            Discard
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="md:col-span-3 flex flex-col items-end justify-between py-2">
+                        <span className="text-2xl font-serif">₹{(item.price * item.quantity).toLocaleString()}</span>
+                        <div className="md:text-right text-[10px] text-stone-300 font-bold uppercase tracking-widest leading-relaxed">
+                          Ethically Sourced <br /> Hand-Finished
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+
+              {/* Information Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-12">
+                <div className="bg-white p-10 border border-stone-100 space-y-4">
+                  <span className="material-symbols-outlined text-stone-300 text-3xl">spa</span>
+                  <h5 className="font-serif text-xl tracking-tight">Atelier Assurance</h5>
+                  <p className="text-xs text-stone-400 font-medium leading-relaxed">Each piece is inspected by our senior artisans. Your order includes a signed certificate of authenticity and a bespoke storage dust-bag.</p>
+                </div>
+                <div className="bg-white p-10 border border-stone-100 space-y-4">
+                  <span className="material-symbols-outlined text-stone-300 text-3xl">verified</span>
+                  <h5 className="font-serif text-xl tracking-tight">Luxury concierge</h5>
+                  <p className="text-xs text-stone-400 font-medium leading-relaxed">Have questions about fit or styling? Our concierge is available 24/7 to ensure your selection is nothing short of perfection.</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Summary Column */}
-          <div className="lg:col-span-4 lg:sticky lg:top-28">
-            <div className="bg-white p-10 rounded-[1rem] shadow-[0_40px_60px_-5px_rgba(54,59,16,0.06)] border border-stone-200">
-              <h2 className="text-3xl font-serif  text-rose-900 mb-8 text-center">Summary</h2>
-              <div className="space-y-6 text-on-surface">
+            {/* Sidebar Summary */}
+            <div className="xl:col-span-4 lg:sticky lg:top-32 h-fit">
+              <div className="bg-white border border-stone-200 p-12 shadow-[40px_40px_80px_-40px_rgba(0,0,0,0.05)]">
+                <h2 className="text-4xl font-serif mb-16 tracking-tighter">Check out</h2>
+                
+                <div className="space-y-8 pb-12 border-b border-stone-100">
+                  <div className="flex justify-between items-center text-xs font-black uppercase tracking-widest">
+                    <span className="text-stone-300">Subtotal</span>
+                    <span>₹{subtotal.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs font-black uppercase tracking-widest">
+                    <span className="text-stone-300">GST (12%)</span>
+                    <span>₹{gst.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs font-black uppercase tracking-widest">
+                    <span className="text-stone-300">Shipping</span>
+                    <span className={shipping === 0 ? "text-emerald-500 italic" : "text-black"}>
+                      {shipping === 0 ? "Included" : `₹${shipping}`}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="py-12 flex justify-between items-end">
+                  <div className="space-y-1">
+                    <span className="text-xs font-black uppercase tracking-widest text-stone-300">Total payable</span>
+                    <h3 className="text-5xl font-serif">₹{total.toLocaleString()}</h3>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <button className="w-full bg-black text-white py-8 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-stone-800 transition-all shadow-xl hover:-translate-y-1">
+                    Secure checkout
+                  </button>
+                  <p className="text-center text-[9px] font-bold text-stone-300 uppercase tracking-widest mt-4">
+                    Accepted: Visa, Amex, UPI, Crypto
+                  </p>
+                </div>
+
+                <div className="mt-16 space-y-6">
+                   <div className="flex items-start gap-4 text-stone-300">
+                     <span className="material-symbols-outlined text-sm">lock</span>
+                     <p className="text-[9px] font-bold uppercase tracking-widest leading-loose">Encrypted transactional layer secured by 24L Vault Protocol.</p>
+                   </div>
+                   <div className="flex items-start gap-4 text-stone-300">
+                     <span className="material-symbols-outlined text-sm">public</span>
+                     <p className="text-[9px] font-bold uppercase tracking-widest leading-loose">Eco-friendly carbon-neutral delivery on all global curations.</p>
+                   </div>
+                </div>
+              </div>
+
+              {/* Promo Section */}
+              <div className="mt-8 p-8 border border-stone-200 border-dashed group cursor-pointer hover:border-black transition-colors">
                 <div className="flex justify-between items-center">
-                  <span className="text-stone-500">Subtotal</span>
-                  <span className="font-medium">$720.00</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-stone-500">Estimated Shipping</span>
-                  <span className="font-medium">$15.00</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-stone-500">Tax</span>
-                  <span className="font-medium">$57.60</span>
-                </div>
-                <div className="pt-6 mt-6 border-t border-stone-200 flex justify-between items-end">
-                  <span className="text-xl font-serif ">Total</span>
-                  <span className="text-3xl font-serif text-rose-900">$792.60</span>
-                </div>
-              </div>
-              <div className="mt-10 space-y-4">
-                <Link href="/checkout" className="w-full bg-gradient-to-br from-primary to-primary-dim text-white font-bold capitalize tracking-[0.2em] py-5 rounded-full text-sm shadow-lg hover:opacity-90 active:scale-[0.98] transition-all text-center block">
-                  Proceed to Checkout
-                </Link>
-                <button className="w-full text-stone-500 hover:text-primary text-xs capitalize tracking-widest py-2 transition-all">
-                  Continue Shopping
-                </button>
-              </div>
-              <div className="mt-8 pt-8 border-t border-stone-100">
-                <div className="flex items-center gap-4 text-stone-400">
-                  <span className="material-symbols-outlined text-lg">verified_user</span>
-                  <p className="text-[10px] capitalize tracking-widest leading-relaxed">Secure SSL encrypted checkout. 30-day elegant returns guaranteed.</p>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-stone-400">Have a promo?</span>
+                  <span className="material-symbols-outlined text-stone-300 group-hover:text-black transition-colors">add</span>
                 </div>
               </div>
             </div>
-            {/* Promo Code */}
-            <div className="mt-6 bg-surface-container-high/30 p-6 rounded-[1rem]">
-              <label className="block text-xs capitalize tracking-widest text-stone-500 mb-3 font-bold">Promo Code</label>
-              <div className="flex gap-2">
-                <input className="flex-grow bg-white border-none rounded-full px-4 py-2 text-sm focus:ring-1 focus:ring-primary/20 outline-none" placeholder="ENTERYOURCODE" type="text" />
-                <button className="bg-secondary/10 text-secondary px-6 rounded-full text-xs font-bold capitalize tracking-widest hover:bg-secondary hover:text-white transition-all py-2">Apply</button>
-              </div>
-            </div>
           </div>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white rounded-t-[3rem] mt-12 overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 md:px-12 py-20 w-full max-w-screen-2xl mx-auto">
-          <div className="flex flex-col space-y-6">
-            <Link className="text-2xl font-serif " href="/">24Loop</Link>
-            <p className="text-sm leading-relaxed text-white/60">Defining modern luxury through curated silhouettes and ethical craftsmanship since 2022.</p>
-            <div className="flex space-x-6 text-white/40">
-              <Link className="hover:text-white transition-all duration-200 material-symbols-outlined" href="#">camera_alt</Link>
-              <Link className="hover:text-white transition-all duration-200 material-symbols-outlined" href="#">share</Link>
-              <Link className="hover:text-white transition-all duration-200 material-symbols-outlined" href="#">public</Link>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-serif text-xl mb-6 font-bold capitalize tracking-widest text-xs opacity-50">Shop</h4>
-            <ul className="space-y-4 text-sm text-white/50">
-              <li><Link className="hover:text-white transition-all" href="/shop">New Arrivals</Link></li>
-              <li><Link className="hover:text-white transition-all" href="/categories">All Categories</Link></li>
-              <li><Link className="hover:text-white transition-all" href="/contact">Store Locator</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-serif text-xl mb-6 font-bold capitalize tracking-widest text-xs opacity-50">Support</h4>
-            <ul className="space-y-4 text-sm text-white/50">
-              <li><Link className="hover:text-white transition-all" href="#">Customer Care</Link></li>
-              <li><Link className="hover:text-white transition-all" href="#">Shipping & Returns</Link></li>
-              <li><Link className="hover:text-white transition-all" href="#">FAQ</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-serif text-xl mb-6 font-bold capitalize tracking-widest text-xs opacity-50">Newsletter</h4>
-            <p className="text-sm text-white/60 mb-6">Join for invitations to private events and collection launches.</p>
-            <div className="relative">
-              <input className="w-full bg-transparent border-b border-white/20 focus:border-primary py-2 text-sm focus:ring-0 outline-none px-0 text-white transition-colors" placeholder="Email Address" type="email" />
-              <button className="absolute right-0 bottom-2 text-primary hover:text-white transition-colors">
-                <span className="material-symbols-outlined">arrow_forward</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="border-t border-white/5 py-8 px-12 text-center">
-          <p className="text-[10px] text-white/30 capitalize tracking-[0.4em]">© 2026 24Loop Digital Atelier. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-function CartItem({ image, title, color, size, price }: { image: string, title: string, color: string, size: string, price: string }) {
-  return (
-    <div className="group flex flex-col md:flex-row gap-8 items-center bg-surface-container-low/40 p-6 rounded-[1rem] hover:bg-surface-container-low transition-all duration-500">
-      <div className="w-full md:w-48 h-64 overflow-hidden rounded-[1rem] bg-stone-100 relative">
-        <Link href="/product">
-          <Image src={image} alt={title} fill className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-        </Link>
-      </div>
-      <div className="flex-grow flex flex-col justify-between h-full py-2 w-full">
-        <div className="flex justify-between items-start w-full">
-          <div>
-            <Link href="/product">
-              <h3 className="text-2xl font-serif text-on-background mb-1 hover:text-primary transition-colors cursor-pointer">{title}</h3>
+        ) : (
+          <div className="py-60 text-center space-y-12">
+            <h2 className="text-5xl font-serif text-stone-200 italic tracking-tighter">The bag is holding nothingness.</h2>
+            <Link href="/shop" className="inline-block border-b-2 border-black pb-2 text-sm font-black uppercase tracking-[0.3em] hover:text-stone-500 hover:border-stone-500 transition-all">
+              Discover Collections
             </Link>
-            <p className="text-sm text-stone-500 capitalize tracking-widest">Color: {color}</p>
-            <p className="text-sm text-stone-500 capitalize tracking-widest mt-1">Size: {size}</p>
           </div>
-          <button className="text-stone-400 hover:text-red-500 transition-colors">
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </div>
-        <div className="flex flex-wrap justify-between items-end mt-8">
-          <div className="flex items-center bg-surface-container-high rounded-full px-4 py-2 space-x-6">
-            <button className="w-6 h-6 flex items-center justify-center text-on-surface hover:text-primary transition-colors">
-              <span className="material-symbols-outlined text-sm">remove</span>
-            </button>
-            <span className="text-sm font-bold">1</span>
-            <button className="w-6 h-6 flex items-center justify-center text-on-surface hover:text-primary transition-colors">
-              <span className="material-symbols-outlined text-sm">add</span>
-            </button>
-          </div>
-          <div className="text-xl font-serif text-secondary">{price}</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function LookItem({ image, title }: { image: string, title: string }) {
-  return (
-    <div className="space-y-3">
-      <div className="aspect-[3/4] bg-surface-container-low rounded-[1rem] overflow-hidden relative">
-        <Link href="/product">
-          <Image src={image} alt={title} fill className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" />
-        </Link>
-      </div>
-      <p className="text-xs capitalize tracking-widest text-center font-bold">{title}</p>
+        )}
+      </main>
     </div>
   );
 }

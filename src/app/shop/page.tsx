@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 
 export default function Shop() {
@@ -9,7 +9,7 @@ export default function Shop() {
       <main className="max-w-screen-2xl mx-auto px-8 pt-12 pb-24">
         {/* Editorial Header Section */}
         <section className="mb-16">
-          <h1 className="font-black  text-6xl md:text-8xl text-primary leading-none mb-4">Curated Collection</h1>
+          <h1 className="font-black  text-4xl md:text-6xl text-primary leading-none mb-4">Curated Collection</h1>
           <p className="text-lg text-tertiary max-w-2xl leading-relaxed">
             Discover pieces that whisper elegance and scream sophistication. From sun-drenched linens to evening silks, find your next ethereal statement.
           </p>
@@ -54,8 +54,8 @@ export default function Shop() {
               <h3 className="font-serif text-xl text-primary mb-6">Price Range</h3>
               <input className="w-full h-1 bg-surface-container-high rounded-full appearance-none accent-primary cursor-pointer" type="range" />
               <div className="flex justify-between mt-4 text-xs text-tertiary">
-                <span>$50</span>
-                <span>$500+</span>
+                <span>₹50</span>
+                <span>₹500+</span>
               </div>
             </div>
 
@@ -82,47 +82,54 @@ export default function Shop() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12">
-              <ShopCard 
-                image="https://lh3.googleusercontent.com/aida-public/AB6AXuC1kdNVJ8eGrDg9YO6ZBeQ1IhBlan8wD3m-hvm50cfY-U7kwhZJR2s0f5M-041dZ1T5LZXM3t05kUSQJhVWExC3Sdc_CnI7kfRssiNiDH2Olp_z0C4anaCE9tBoeCkycImIkmVLAgi5Im61IINHYPYF2VPoDpjsfcQ7zqMjZfUy8szemNRKUdIEVjMerKaQc_AihQJkmK9XZQc723HUQu7WObkydEXjr2jJt_fn-5HYWR7hkxHfaBtRZe11IGq927VEVZjB8j82eKU" 
-                title="The Silk Wrap Dress" 
-                color="Blush Rose" 
-                price="$285" 
-                originalPrice="$712"
+              <ProductCard
+                image="https://lh3.googleusercontent.com/aida-public/AB6AXuC1kdNVJ8eGrDg9YO6ZBeQ1IhBlan8wD3m-hvm50cfY-U7kwhZJR2s0f5M-041dZ1T5LZXM3t05kUSQJhVWExC3Sdc_CnI7kfRssiNiDH2Olp_z0C4anaCE9tBoeCkycImIkmVLAgi5Im61IINHYPYF2VPoDpjsfcQ7zqMjZfUy8szemNRKUdIEVjMerKaQc_AihQJkmK9XZQc723HUQu7WObkydEXjr2jJt_fn-5HYWR7hkxHfaBtRZe11IGq927VEVZjB8j82eKU"
+                title="The Silk Wrap Dress"
+                subtitle="Blush Rose"
+                price="₹15,285"
+                originalPrice="₹712"
+                brand="ATELIER"
               />
-              <ShopCard 
-                image="https://lh3.googleusercontent.com/aida-public/AB6AXuCMSP1NJaKl04xGwEEDdZCJytxn9RiHfSSbK2o3XtqIgPz3thckS9tafUUkoP99_JJRjkl13X0WuayM4mlcvfLsAjc68cWWfeBB3qJ_8AgNsWNSF3UqySnxPa7v-02jooGM1S59r_RZlOENfIFBVO-KYgZ_etmvmTuPHLu9iPoC5rpxZFf47MIKhLqyP_b9uxxFBhcWiYgaaZOguNvv_obMfdWAC6XWB6j-EIgETtD3ny-CTSZXyEARRKejA2VmUGucDbRDgFWXEoU" 
-                title="Linen Whisper Blouse" 
-                color="Ivory" 
-                price="$145" 
-                originalPrice="$362"
+              <ProductCard
+                image="https://lh3.googleusercontent.com/aida-public/AB6AXuCMSP1NJaKl04xGwEEDdZCJytxn9RiHfSSbK2o3XtqIgPz3thckS9tafUUkoP99_JJRjkl13X0WuayM4mlcvfLsAjc68cWWfeBB3qJ_8AgNsWNSF3UqySnxPa7v-02jooGM1S59r_RZlOENfIFBVO-KYgZ_etmvmTuPHLu9iPoC5rpxZFf47MIKhLqyP_b9uxxFBhcWiYgaaZOguNvv_obMfdWAC6XWB6j-EIgETtD3ny-CTSZXyEARRKejA2VmUGucDbRDgFWXEoU"
+                title="Linen Whisper Blouse"
+                subtitle="Ivory"
+                price="₹145"
+                originalPrice="₹362"
+                brand="MINIMAL"
               />
-              <ShopCard 
-                image="https://lh3.googleusercontent.com/aida-public/AB6AXuAzs2JZ7vE9GCh769Y4LH3AM1rnFgPwAuBfdvLxXnGmyO97ENvG2TpKmS9mLsHOxOMcJazc0RR0OopGZuIZI6ZTADbU-3CGlPUCh8fbZo9H2bfvccELa7FGG9dmWOyDHTWI63wgRmlxM7gyFFJM9PG_plrigoZREB1Wlq9DdtvZgTEKlD8khQEa_kw-zOpAmQNNAlMJ6SNUpK8ZfEoGgOufTbiwmUdKRtxZmMoJ9U1Rq-gYZsMLKlgNisdvPZHiBbEcyZvSFrAWAv8" 
-                title="Orchid Evening Gown" 
-                color="Evening Dusk" 
-                price="$490" 
-                originalPrice="$1225"
+              <ProductCard
+                image="https://lh3.googleusercontent.com/aida-public/AB6AXuAzs2JZ7vE9GCh769Y4LH3AM1rnFgPwAuBfdvLxXnGmyO97ENvG2TpKmS9mLsHOxOMcJazc0RR0OopGZuIZI6ZTADbU-3CGlPUCh8fbZo9H2bfvccELa7FGG9dmWOyDHTWI63wgRmlxM7gyFFJM9PG_plrigoZREB1Wlq9DdtvZgTEKlD8khQEa_kw-zOpAmQNNAlMJ6SNUpK8ZfEoGgOufTbiwmUdKRtxZmMoJ9U1Rq-gYZsMLKlgNisdvPZHiBbEcyZvSFrAWAv8"
+                title="Orchid Evening Gown"
+                subtitle="Evening Dusk"
+                price="₹490"
+                originalPrice="₹1225"
+                brand="EVENING"
               />
-              <ShopCard 
-                image="https://lh3.googleusercontent.com/aida-public/AB6AXuB2NI7HUhs01rahyPKc4XO-NiAnJ2WAPKX_fuMPJWrGHbwhqfgU6QKZHt6IjtIf9S6bc3NM8EpPL-UZY7Qp75TSpTiCEuBl_viW2Q-kdMsSh-WLLtiXB5PxpIqNU4OOIEy9vcwUjd6IVQurC8tSW5mTncL-6691089SdLpUOWz6i89ffjptFzcTT7tpFPmt8uVL80PjRb4_qAZ9NjUT9_AjJJGRjrr_O7Mhhyt0_-RhbgewXyxc-w_1msLaXL9S4LErdvKTu1dRCDY" 
-                title="Cashmere Cloud Cardigan" 
-                color="Taupe" 
-                price="$320" 
-                originalPrice="$800"
+              <ProductCard
+                image="https://lh3.googleusercontent.com/aida-public/AB6AXuB2NI7HUhs01rahyPKc4XO-NiAnJ2WAPKX_fuMPJWrGHbwhqfgU6QKZHt6IjtIf9S6bc3NM8EpPL-UZY7Qp75TSpTiCEuBl_viW2Q-kdMsSh-WLLtiXB5PxpIqNU4OOIEy9vcwUjd6IVQurC8tSW5mTncL-6691089SdLpUOWz6i89ffjptFzcTT7tpFPmt8uVL80PjRb4_qAZ9NjUT9_AjJJGRjrr_O7Mhhyt0_-RhbgewXyxc-w_1msLaXL9S4LErdvKTu1dRCDY"
+                title="Cashmere Cloud Cardigan"
+                subtitle="Taupe"
+                price="₹320"
+                originalPrice="₹800"
+                brand="HERITAGE"
               />
-              <ShopCard 
-                image="https://lh3.googleusercontent.com/aida-public/AB6AXuAvU8TotjkqqTgzK2bITDbabdbvUIx0kzccQAfMyWK0Ot0O-vhVR9R3LIjS-NlFgNN2MNdFSriagcYOTIrWLkpmIYfvGc17wclnhnFlYG05OT4OBGmkY0sNlA89-IZeh0L8ATmVwQBIN0O7dfU8bPk-bXRerjT484e-cw6cMHpCBaFt7GmC78QdzQIJGIsFu6pasPYZNxMW1uZo7sLff6Z2F2npV40S5gIGg-BMs0RCD4EK8rcMMLKTvZcMGoVwguQ1OxsGAMfXI50" 
-                title="Petal Sun Dress" 
-                color="Floral Mist" 
-                price="$195" 
-                originalPrice="$485"
+              <ProductCard
+                image="https://lh3.googleusercontent.com/aida-public/AB6AXuAvU8TotjkqqTgzK2bITDbabdbvUIx0kzccQAfMyWK0Ot0O-vhVR9R3LIjS-NlFgNN2MNdFSriagcYOTIrWLkpmIYfvGc17wclnhnFlYG05OT4OBGmkY0sNlA89-IZeh0L8ATmVwQBIN0O7dfU8bPk-bXRerjT484e-cw6cMHpCBaFt7GmC78QdzQIJGIsFu6pasPYZNxMW1uZo7sLff6Z2F2npV40S5gIGg-BMs0RCD4EK8rcMMLKTvZcMGoVwguQ1OxsGAMfXI50"
+                title="Petal Sun Dress"
+                subtitle="Floral Mist"
+                price="₹195"
+                originalPrice="₹485"
+                brand="FLORAL"
+                isHotDeal={true}
               />
-              <ShopCard 
-                image="https://lh3.googleusercontent.com/aida-public/AB6AXuAeHV8hOAlM7OEqYDXF2l8WId0VGlALfdcUis9cw300hV1S27oJMc0cSn9k4GXaCZ_M3WZ6hHMpyMA4IKcbPFAngmMlI-FVdtUOP3qFwYsE1ZdDQD9ZExB8akXDSZVSOMoZxiKoXczgY8jSBUb-j23b_EJo90VGHhGW1PmzBhFKZqb1UcukPgg8nCwQoUm6gqLaoEm6K97MyEAQS8hhfn6OVP3XiHSvrBH-qnB8_czZE_M9YVAdxLNA0IyEQ49O1Zd2PZfpm-EWMjs" 
-                title="Satin Slip Skirt" 
-                color="Champagne" 
-                price="$110" 
-                originalPrice="$275"
+              <ProductCard
+                image="https://lh3.googleusercontent.com/aida-public/AB6AXuAeHV8hOAlM7OEqYDXF2l8WId0VGlALfdcUis9cw300hV1S27oJMc0cSn9k4GXaCZ_M3WZ6hHMpyMA4IKcbPFAngmMlI-FVdtUOP3qFwYsE1ZdDQD9ZExB8akXDSZVSOMoZxiKoXczgY8jSBUb-j23b_EJo90VGHhGW1PmzBhFKZqb1UcukPgg8nCwQoUm6gqLaoEm6K97MyEAQS8hhfn6OVP3XiHSvrBH-qnB8_czZE_M9YVAdxLNA0IyEQ49O1Zd2PZfpm-EWMjs"
+                title="Satin Slip Skirt"
+                subtitle="Champagne"
+                price="₹110"
+                originalPrice="₹275"
+                brand="CHIC"
               />
             </div>
 
@@ -185,50 +192,6 @@ export default function Shop() {
           <p className="text-[10px] text-white/30 capitalize ">© 2026 24Loop Digital Atelier. All rights reserved.</p>
         </div>
       </footer>
-    </div>
-  );
-}
-
-function ShopCard({ image, title, color, price, originalPrice = "$400", rating = 4.2 }: { image: string, title: string, color: string, price: string, originalPrice?: string, rating?: number }) {
-  return (
-    <div className="group bg-white rounded-[1rem] p-4 transition-all duration-300 hover:shadow-xl border border-transparent hover:border-stone-100 relative">
-      <div className="relative aspect-[3/4] overflow-hidden rounded-[0.8rem] mb-5 bg-stone-50">
-        <button className="absolute top-3 right-3 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-stone-400 transition-all hover:bg-rose-50 hover:text-rose-600 shadow-sm">
-          <span className="material-symbols-outlined text-[20px]">favorite</span>
-        </button>
-        <Link href="/product">
-          <Image src={image} alt={title} fill className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        </Link>
-        <div className="absolute bottom-3 inset-x-3 opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
-          <Link href="/cart" className="w-full bg-on-surface text-surface py-2.5 rounded-full text-xs font-bold flex items-center justify-center gap-2 hover:bg-primary transition-colors shadow-lg">
-            <span className="material-symbols-outlined text-sm">shopping_bag</span>
-            Quick Add
-          </Link>
-        </div>
-      </div>
-      <div className="px-1">
-        <div className="flex items-center gap-1 mb-1">
-          <span className="text-[10px] font-bold text-stone-400 capitalize ">24Loop</span>
-          <div className="flex text-amber-400 ml-auto">
-            <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-            <span className="text-[11px] font-bold text-on-surface ml-0.5">{rating}</span>
-          </div>
-        </div>
-        <Link href="/product">
-          <h4 className="font-serif text-lg text-primary leading-tight hover:underline cursor-pointer line-clamp-1">{title}</h4>
-        </Link>
-        <p className="text-xs text-tertiary capitalize  mt-1 mb-3">{color}</p>
-        
-        <div className="flex items-baseline gap-2">
-          <span className="text-xl font-bold text-on-surface">{price}</span>
-          <span className="text-sm text-stone-400 line-through">{originalPrice}</span>
-        </div>
-        
-        <p className="text-[10px] text-green-700 font-bold mt-2 flex items-center gap-1">
-          <span className="material-symbols-outlined text-[14px]">local_shipping</span>
-          FREE Delivery by Tomorrow
-        </p>
-      </div>
     </div>
   );
 }

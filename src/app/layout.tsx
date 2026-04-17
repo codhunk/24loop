@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Serif, Manrope } from "next/font/google";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 const notoSerif = Noto_Serif({
@@ -19,8 +20,6 @@ export const metadata: Metadata = {
   title: "24Loop | Digital Atelier",
   description: "Defining modern luxury through curated silhouettes and ethical craftsmanship.",
 };
-
-import Navbar from "@/components/Navbar";
 
 export default function RootLayout({
   children,
